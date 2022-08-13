@@ -9,5 +9,14 @@
   --light-blue: #a3e1dc;
   --gray: #edeae5;
   --skin: #ffdbcc;
+  --light-text: 300;
+  --normal-text: 400;
+  --semi-bold-text: 600;
+  --bold-text: 700;
   font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+}
+
+.nav--link {
+  transition: background-color 0.25s ease-in-out;
 }
