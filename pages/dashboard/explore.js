@@ -1,5 +1,8 @@
+import { useState } from "react"
 import NavBar from "../../components/NavBar";
+
 export default function Explore() {
+  const [listings, setListings] = useState([])
   return (
     <div className="flex h-screen w-screen">
       <NavBar />
@@ -14,7 +17,7 @@ export default function Explore() {
           <div className="flex flex-col items-start bg-white rounded-xl w-full h-full p-2 gap-4">
             <div
               id="columns"
-              className="grid grid-cols-9 w-full rounded-lg bg-[color:var(--light-blue)] p-4 [font-weight:"
+              className="grid grid-cols-9 w-full rounded-lg bg-[color:var(--light-blue)] p-4 [font-weight:var(--bold-text)]"
             >
               <span className="col-span-2">Company Name</span>
               <span className="col-span-2">Position</span>
