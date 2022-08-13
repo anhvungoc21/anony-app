@@ -40,52 +40,62 @@ export default function Register() {
   };
 
   return (
-    <div>
-      <div className="fixed top-1/4 left-1/4 bg-slate-700 h-1/2 w-1/2 text-center text-white rounded-2xl space-y-3 p-5">
-        <h1 className="text-2xl font-bold">My Internships</h1>
+    <div className="flex items-center justify-center h-screen w-screen bg-[color:var(--gray)] select-none">
+      <div className="flex flex-col items-center bg-[color:var(--skin)] rounded-2xl p-8 space-y-4">
+        <span className="text-2xl font-bold">Sign up for AnonyApp</span>
         <form
-          className="space-y-5 justify-center items-center"
+          className="flex flex-col space-y-3 justify-center items-center"
           onSubmit={(e) => signUpUser(e)}
         >
-          <div>
+          <div className="flex flex-col gap-1">
+            <span> Your name: </span>
             <input
-              className="bg-slate-700 border-0 border-b-2 border-purple-500"
+              className="p-2 rounded-lg"
               type="text"
               name="name"
-              placeholder="Name"
+              placeholder="First Last"
               onChange={(e) => setName(e.target.value)}
             ></input>
           </div>
-          <div>
+          <div className="flex flex-col gap-1">
+            <span> Email: </span>
             <input
-              className="bg-slate-700 border-0 border-b-2 border-purple-500"
+              className="p-2 rounded-lg"
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder="johndoe@example.com"
               onChange={(e) => setEmail(e.target.value)}
             ></input>
           </div>
-          <div>
+          <div className="flex flex-col gap-1">
+            <span> Password: </span>
             <input
-              className="bg-slate-700 border-0 border-b-2 border-purple-500"
-              placeholder="Password"
+              className="p-2 rounded-lg"
               type="password"
               name="password"
+              placeholder="password"
               onChange={(e) => setPassword(e.target.value)}
             ></input>
           </div>
-          <p style={{ color: "red" }}>{message}</p>
-          <button type="submit" className="bg-purple-500 p-2 rounded">
+          <span className="text-red-500 grow text-xs leading-none">
+            {message}
+          </span>
+          <button
+            type="submit"
+            className="rounded-lg pt-2 pb-2 pl-4 pr-4 bg-white hover:bg-[color:var(--blue)] transition-colors"
+          >
             Sign Up
           </button>
         </form>
-        <div>Are you a returning user?</div>
-        <button
-          onClick={(e) => changeLogin(e)}
-          className="bg-purple-500 p-2 rounded"
-        >
-          Login
-        </button>
+        <div className="flex gap-2 text-sm">
+          <span>Are you a returning user?</span>
+          <a
+            onClick={(e) => changeLogin(e)}
+            className="cursor-pointer underline"
+          >
+            Log in
+          </a>
+        </div>
       </div>
     </div>
   );
