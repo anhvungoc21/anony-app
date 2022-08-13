@@ -1,9 +1,39 @@
 import NavBar from "../../components/navbar.js";
+import LocationDropdown from "../../components/LocationDropdown.js";
+import StatusDropdown from "../../components/StatusDropdown.js";
+import JobCategoryDropdown from "../../components/JobCategoryDropdown.js";
+import { useState } from "react";
 
 // NavBar on left side
 // The rest is the main dashboard
 
 export default function DashBoard() {
+  const [companyName, setCompanyName] = useState("");
+  const [position, setPosition] = useState("");
+  const [jobCategory, setJobCategory] = useState("");
+  const [location, setLocation] = useState("");
+  const [status, setStatus] = useState("");
+  const [dateApplied, setDateApplied] = useState("");
+  const [positionUrl, setPositionUrl] = useState("");
+  const [message, setMessage] = useState(null);
+
+  const addApplication = (e) => {
+    e.preventDefault();
+    if (
+      !(
+        companyName &&
+        position &&
+        jobCategory &&
+        location &&
+        status &&
+        dateApplied &&
+        positionUrl
+      )
+    ) {
+      setMessage("Please fill out all field!");
+      return;
+    }
+  };
   return (
     <div className="flex h-screen w-screen">
       <NavBar />
@@ -29,7 +59,7 @@ export default function DashBoard() {
               <span>Company Name:</span>
               <input
                 className="border-box flex rounded-lg bg-[color:var(--gray)] m-2 h-full"
-                placeholder="Company..."
+                placeholder="Google"
               ></input>
             </div>
             <div
@@ -39,7 +69,7 @@ export default function DashBoard() {
               <span>Position:</span>
               <input
                 className="border-box flex rounded-lg bg-[color:var(--gray)] m-2 h-full"
-                placeholder="Back-end Developer, Front-end Developer..."
+                placeholder="Software Engineer"
               ></input>
             </div>
             <div
@@ -47,15 +77,15 @@ export default function DashBoard() {
               className="flex w-full h-full items-center p-4 gap-1"
             >
               <span>Job Category:</span>
-              <select className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full"></select>
+              <JobCategoryDropdown />
             </div>
             <div className="flex w-full h-full items-center p-4 gap-1">
               <span>Location:</span>
-              <select className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full"></select>
+              <LocationDropdown />
             </div>
             <div className="flex w-full h-full items-center p-4 gap-1">
               <span>Status:</span>
-              <select className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full"></select>
+              <StatusDropdown />
             </div>
             {/* Conditional rendẻing for date applied based on status? */}
             <div className="flex w-full h-full items-center p-4 gap-1">
@@ -69,14 +99,18 @@ export default function DashBoard() {
               <span>URL to position:</span>
               <input
                 className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full"
-                placeholder="https://..."
+                placeholder="www.jobs.google.com"
               ></input>
             </div>
             <div className="flex w-full h-full items-center p-4 gap-1 justify-end">
-              <button className="flex items-center rounded-lg bg-[color:var(--gray)] m-2 h-full p-2">
+              <button
+                onClick={(e) => addApplication(e)}
+                className="flex items-center rounded-lg bg-[color:var(--gray)] m-2 h-full p-2"
+              >
                 Add Application
               </button>
             </div>
+            <p style={{ color: "red" }}>{message}</p>
           </div>
         </div>
         <div id="my-listings" className="row-span-3 p-8">
