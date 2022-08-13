@@ -1,7 +1,9 @@
+import NavBar from "../../components/navbar";
 export default function MyProfile() {
-    return (
-        <div>
-            PROFILE
-        </div>
-    )
+  return (
+    <div className="flex h-screen w-screen">
+      <NavBar />
+      <div id="my-profile">MY PROFILE</div>
+    </div>
+  );
 }
