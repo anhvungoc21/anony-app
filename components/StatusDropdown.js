@@ -1,6 +1,9 @@
-export default function StatusDropdown() {
+export default function StatusDropdown({ setJobStatus }) {
   return (
-    <select className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full">
+    <select
+      onChange={(e) => setJobStatus(e.target.value)}
+      className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full"
+    >
       <option value="">Choose a status</option>
       <option value="Applied">Applied</option>
       <option value="Online Test">Online Test</option>

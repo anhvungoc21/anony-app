@@ -1,6 +1,9 @@
-export default function LocationDropdown() {
+export default function LocationDropdown({ setLocation }) {
   return (
-    <select className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full">
+    <select
+      onChange={(e) => setLocation(e.target.value)}
+      className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full"
+    >
       <option value="">Choose a location</option>
       <option value="AL">Alabama</option>
       <option value="AK">Alaska</option>

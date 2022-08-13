@@ -1,6 +1,9 @@
-export default function JobCategoryDropdown() {
+export default function JobCategoryDropdown({ setJobCategory }) {
   return (
-    <select className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full">
+    <select
+      onChange={(e) => setJobCategory(e.target.value)}
+      className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full"
+    >
       <option value="">Choose a category</option>
       <option value="Architechture and Engineering">
         Architechture and Engineering
