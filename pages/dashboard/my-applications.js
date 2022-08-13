@@ -21,7 +21,7 @@ export default function DashBoard() {
   const [message, setMessage] = useState(null);
 
   // LISTINGS STATES
-  const [listings, setListings] = useState([]);
+  const [listings, setListings] = useState([{}]);
 
   const { data: session, status } = useSession();
   console.log(session);
@@ -164,7 +164,7 @@ export default function DashBoard() {
             </div>
           </div>
         </div>
-        <div id="my-listings" className="row-span-3 p-8">
+        <div id="my-listings" className="row-span-3 p-8 pt-2">
           <div className="flex flex-col items-start bg-white rounded-xl w-full h-full p-2 gap-4">
             <div
               id="columns"
