@@ -27,6 +27,24 @@ export default function DashBoard() {
       status: "Applied",
       dateApplied: "08/13/2022",
     },
+    {
+      companyName: "Google",
+      position: "Front-end Developer",
+      status: "Online Assessment",
+      dateApplied: "08/10/2022",
+    },
+    {
+      companyName: "Microsoft",
+      position: "Cloud Software Engineer",
+      status: "Interview",
+      dateApplied: "08/08/2022",
+    },
+    {
+      companyName: "Goldman Sachs",
+      position: "Full-stack Developer",
+      status: "Accepted",
+      dateApplied: "08/12/2022",
+    },
   ]);
 
   const addApplication = (e) => {
@@ -140,8 +158,9 @@ export default function DashBoard() {
               id="entries"
               className="flex flex-col grow w-full gap-2 overflow-y-scroll"
             >
-              {listings.map((entry) => (
+              {listings.map((entry, i) => (
                 <ListingItem
+                  key={`listing-item-${i}`}
                   companyName={entry.companyName}
                   position={entry.position}
                   status={entry.status}
