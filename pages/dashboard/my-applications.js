@@ -4,6 +4,7 @@ import StatusDropdown from "../../components/StatusDropdown.js";
 import JobCategoryDropdown from "../../components/JobCategoryDropdown.js";
 import ListingItem from "../../components/ListingItem.js";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 // NavBar on left side
 // The rest is the main dashboard
@@ -11,43 +12,21 @@ import { useState } from "react";
 export default function DashBoard() {
   // FORM STATES
   const [companyName, setCompanyName] = useState("");
-  const [position, setPosition] = useState("");
+  const [jobPosition, setJobPosition] = useState("");
   const [jobCategory, setJobCategory] = useState("");
   const [location, setLocation] = useState("");
-  const [status, setStatus] = useState("");
+  const [jobStatus, setJobStatus] = useState("");
   const [dateApplied, setDateApplied] = useState("");
   const [positionUrl, setPositionUrl] = useState("");
   const [message, setMessage] = useState(null);
 
   // LISTINGS STATES
-  const [listings, setListings] = useState([
-    {
-      companyName: "Facebook",
-      position: "Back-end Developer",
-      status: "Applied",
-      dateApplied: "08/13/2022",
-    },
-    {
-      companyName: "Google",
-      position: "Front-end Developer",
-      status: "Online Assessment",
-      dateApplied: "08/10/2022",
-    },
-    {
-      companyName: "Microsoft",
-      position: "Cloud Software Engineer",
-      status: "Interview",
-      dateApplied: "08/08/2022",
-    },
-    {
-      companyName: "Goldman Sachs",
-      position: "Full-stack Developer",
-      status: "Accepted",
-      dateApplied: "08/12/2022",
-    },
-  ]);
+  const [listings, setListings] = useState([]);
 
-  const addApplication = (e) => {
+  const { data: session, status } = useSession();
+  console.log(session);
+
+  const addApplication = async (e) => {
     e.preventDefault();
     if (
       !(
@@ -55,13 +34,51 @@ export default function DashBoard() {
         position &&
         jobCategory &&
         location &&
-        status &&
-        dateApplied &&
+        jobStatus &&
         positionUrl
       )
     ) {
       setMessage("Please fill out all field!");
       setTimeout(() => setMessage(""), 3000);
+    }
+
+    if (dateApplied == "") {
+      setDateApplied(Date.now());
+    }
+
+    const d = {
+      email: session?.user.email,
+      companyName,
+      jobPosition,
+      jobCategory,
+      location,
+      jobStatus,
+      dateApplied,
+      positionUrl,
+    };
+
+    console.log(d);
+
+    const res = await fetch("/api/internship/addInternship", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: session?.user.email,
+        companyName,
+        jobPosition,
+        jobCategory,
+        location,
+        jobStatus,
+        dateApplied,
+        positionUrl,
+      }),
+    });
+
+    const data = await res.json();
+    if (data.message) {
+      setMessage(data.message);
     }
   };
   return (
@@ -80,15 +97,16 @@ export default function DashBoard() {
         >
           <div
             id="form"
-            className="grid grid-rows-4 grid-cols-2 grid-flow-col-dense bg-white items-center grow rounded-xl"
+            className="grid grid-rows-4 grid-cols-2 grid-flow-row bg-white items-center grow rounded-xl"
           >
             <div
               id="company-name"
               className="flex w-full h-full items-center p-4 gap-1 hover:bg-[color:var(--light-blue)] transition-colors select-none"
             >
-              <span>Company Name:</span>
+              <span>*Company Name:</span>
               <input
-                className="grow p-2 border-box flex rounded-lg bg-[color:var(--gray)] m-2 h-full "
+                className="grow p-2 flex rounded-lg bg-[color:var(--gray)] m-2 h-full "
+                onChange={(e) => setCompanyName(e.target.value)}
                 placeholder="Google"
               ></input>
             </div>
@@ -96,38 +114,41 @@ export default function DashBoard() {
               id="position"
               className="grow flex w-full h-full items-center p-4 gap-1 hover:bg-[color:var(--light-blue)] transition-colors select-none"
             >
-              <span>Position:</span>
+              <span>*Position:</span>
               <input
-                className="grow p-2 border-box flex rounded-lg bg-[color:var(--gray)] m-2 h-full "
-                placeholder="Software Engineer"
+                className="grow p-2 flex rounded-lg bg-[color:var(--gray)] m-2 h-full "
+                onChange={(e) => setJobPosition(e.target.value)}
+                placeholder="SWE New Grad Summer 2023"
               ></input>
             </div>
             <div
               id="category"
               className="flex w-full h-full items-center p-4 gap-1 hover:bg-[color:var(--light-blue)] transition-colors select-none"
             >
-              <span>Job Category:</span>
-              <JobCategoryDropdown />
+              <span>*Job Category:</span>
+              <JobCategoryDropdown setJobCategory={setJobCategory} />
             </div>
             <div className="flex w-full h-full items-center p-4 gap-1 hover:bg-[color:var(--light-blue)] transition-colors select-none">
-              <span>Location:</span>
-              <LocationDropdown />
+              <span>*Location:</span>
+              <LocationDropdown setLocation={setLocation} />
             </div>
             <div className="flex w-full h-full items-center p-4 gap-1 hover:bg-[color:var(--light-blue)] transition-colors select-none">
-              <span>Status:</span>
-              <StatusDropdown />
+              <span>*Status:</span>
+              <StatusDropdown setJobStatus={setJobStatus} />
             </div>
-            {/* Conditional rendẻing for date applied based on status? */}
+            {/* Conditional rendering for date applied based on status? */}
             <div className="flex w-full h-full items-center p-4 gap-1 hover:bg-[color:var(--light-blue)] transition-colors select-none">
               <span>Date Applied:</span>
               <input
+                onChange={(e) => setDateApplied(e.target.value)}
                 className="grow p-2 border-box flex rounded-lg bg-[color:var(--gray)] m-2 h-full"
-                placeholder="mm/dd/yyyy"
+                placeholder="mm/dd/yyyy..."
               ></input>
             </div>
             <div className="flex w-full h-full items-center p-4 gap-1 hover:bg-[color:var(--light-blue)] transition-colors select-none">
-              <span>URL:</span>
+              <span>*URL:</span>
               <input
+                onChange={(e) => setPositionUrl(e.target.value)}
                 className="grow p-2 border-box flex rounded-lg bg-[color:var(--gray)] m-2 h-full "
                 placeholder="www.jobs.google.com"
               ></input>

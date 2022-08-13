@@ -1,6 +1,7 @@
-export default function JobCategoryDropdown() {
+export default function JobCategoryDropdown({ setJobCategory }) {
   return (
     <select
+      onChange={(e) => setJobCategory(e.target.value)}
       className="grow flex rounded-lg bg-[color:var(--gray)] m-2 h-full cursor-pointer pl-2"
       defaultValue=""
     >

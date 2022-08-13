@@ -1,6 +1,7 @@
-export default function LocationDropdown() {
+export default function LocationDropdown({ setLocation }) {
   return (
     <select
+      onChange={(e) => setLocation(e.target.value)}
       className="grow flex rounded-lg bg-[color:var(--gray)] m-2 h-full cursor-pointer pl-2"
       defaultValue=""
     >

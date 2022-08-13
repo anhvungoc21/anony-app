@@ -1,7 +1,9 @@
-export default function StatusDropdown() {
+export default function StatusDropdown({ setJobStatus }) {
   return (
     <select
-      className="grow flex rounded-lg bg-[color:var(--gray)] m-2 h-full cursor-pointer pl-2"
+      onChange={(e) => setJobStatus(e.target.value)}
+      className="grow flex rounded-lg bg-[color:var(--gray)] m-2 h-full
+    cursor-pointer pl-2"
       defaultValue=""
     >
       <option value="" disabled>
