@@ -1,7 +1,12 @@
 export default function JobCategoryDropdown() {
   return (
-    <select className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full">
-      <option value="">Choose a category</option>
+    <select
+      className="grow flex rounded-lg bg-[color:var(--gray)] m-2 h-full cursor-pointer pl-2"
+      defaultValue=""
+    >
+      <option value="" disabled>
+        Choose a category
+      </option>
       <option value="Architechture and Engineering">
         Architechture and Engineering
       </option>

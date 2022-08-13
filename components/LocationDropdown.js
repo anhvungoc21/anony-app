@@ -1,7 +1,12 @@
 export default function LocationDropdown() {
   return (
-    <select className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full">
-      <option value="">Choose location</option>
+    <select
+      className="grow flex rounded-lg bg-[color:var(--gray)] m-2 h-full cursor-pointer pl-2"
+      defaultValue=""
+    >
+      <option value="" disabled>
+        Choose a location
+      </option>
       <option value="AL">Alabama</option>
       <option value="AK">Alaska</option>
       <option value="AZ">Arizona</option>

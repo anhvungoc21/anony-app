@@ -24,12 +24,10 @@
 input {
   outline: none;
   border: none;
-  flex-grow: 1;
-  padding: 1em;
 }
 
 select {
-  flex-grow: 1;
+  outline: none;
 }
 
 input::placeholder {

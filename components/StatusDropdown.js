@@ -1,6 +1,12 @@
 export default function StatusDropdown() {
   return (
-    <select className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full">
+    <select
+      className="grow flex rounded-lg bg-[color:var(--gray)] m-2 h-full cursor-pointer pl-2"
+      defaultValue=""
+    >
+      <option value="" disabled>
+        Choose an application status
+      </option>
       <option value="Applied">Applied</option>
       <option value="Online Test">Online Test</option>
       <option value="Interview">Interview</option>
