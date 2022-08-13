@@ -1,10 +1,5 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="bg-[color:var(--blue-color)]">
-      HELLO
-    </div>
-  )
+  return <div>Insert Landing Page here!</div>;
 }
