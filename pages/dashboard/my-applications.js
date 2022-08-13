@@ -17,7 +17,7 @@ export default function DashBoard() {
   const [positionUrl, setPositionUrl] = useState("");
   const [message, setMessage] = useState(null);
 
-  const addApplication = (e) => {
+  const addApplication = async (e) => {
     e.preventDefault();
     if (
       !(
@@ -33,6 +33,25 @@ export default function DashBoard() {
       setMessage("Please fill out all field!");
       return;
     }
+
+    if (dateApplied == "") {
+      setDateApplied(Date.now());
+    }
+
+    const res = await fetch("/api/internship/addInternship", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        companyName,
+        position,
+        jobCategory,
+        location,
+        status,
+        dateApplied,
+      }),
+    });
   };
   return (
     <div className="flex h-screen w-screen">
@@ -50,13 +69,13 @@ export default function DashBoard() {
         >
           <div
             id="form"
-            className="grid grid-rows-4 grid-cols-2 grid-flow-col-dense bg-white items-center grow rounded-xl"
+            className="grid grid-rows-5 grid-cols-2 grid-flow-row bg-white items-center grow rounded-xl"
           >
             <div
               id="company-name"
               className="flex w-full h-full items-center p-4 gap-1"
             >
-              <span>Company Name:</span>
+              <span>*Company Name:</span>
               <input
                 className="border-box flex rounded-lg bg-[color:var(--gray)] m-2 h-full"
                 placeholder="Google"
@@ -66,7 +85,7 @@ export default function DashBoard() {
               id="position"
               className="flex w-full h-full items-center p-4 gap-1"
             >
-              <span>Position:</span>
+              <span>*Position:</span>
               <input
                 className="border-box flex rounded-lg bg-[color:var(--gray)] m-2 h-full"
                 placeholder="Software Engineer"
@@ -76,16 +95,16 @@ export default function DashBoard() {
               id="category"
               className="flex w-full h-full items-center p-4 gap-1"
             >
-              <span>Job Category:</span>
-              <JobCategoryDropdown />
+              <span>*Job Category:</span>
+              <JobCategoryDropdown setJobCategory={setJobCategory} />
             </div>
             <div className="flex w-full h-full items-center p-4 gap-1">
-              <span>Location:</span>
-              <LocationDropdown />
+              <span>*Location:</span>
+              <LocationDropdown setLocation={setLocation} />
             </div>
             <div className="flex w-full h-full items-center p-4 gap-1">
-              <span>Status:</span>
-              <StatusDropdown />
+              <span>*Status:</span>
+              <StatusDropdown setStatus={setStatus} />
             </div>
             {/* Conditional rendẻing for date applied based on status? */}
             <div className="flex w-full h-full items-center p-4 gap-1">
@@ -96,21 +115,23 @@ export default function DashBoard() {
               ></input>
             </div>
             <div className="flex w-full h-full items-center p-4 gap-1">
-              <span>URL to position:</span>
+              <span>*URL to position:</span>
               <input
                 className="flex rounded-lg bg-[color:var(--gray)] m-2 h-full"
                 placeholder="www.jobs.google.com"
               ></input>
             </div>
+            <div className="flex w-full h-full items-center p-4 gap-1">
+              <p style={{ color: "red" }}>Message: {message}</p>
+            </div>
             <div className="flex w-full h-full items-center p-4 gap-1 justify-end">
               <button
                 onClick={(e) => addApplication(e)}
-                className="flex items-center rounded-lg bg-[color:var(--gray)] m-2 h-full p-2"
+                className="col-span-2 flex items-center rounded-lg bg-[color:var(--gray)] m-2 h-full w-full p-2"
               >
                 Add Application
               </button>
             </div>
-            <p style={{ color: "red" }}>{message}</p>
           </div>
         </div>
         <div id="my-listings" className="row-span-3 p-8">
