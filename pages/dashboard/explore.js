@@ -1,4 +1,4 @@
-import NavBar from "../../components/navbar";
+import NavBar from "../../components/NavBar";
 export default function Explore() {
   return (
     <div className="flex h-screen w-screen">
