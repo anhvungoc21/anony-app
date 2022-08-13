@@ -1,6 +1,7 @@
 import { Schema, model, models } from "mongoose";
 
-export const internshipSchema = new Schema({
+const internshipSchema = new Schema({
+  id: { type: Number, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   companyName: { type: String, required: true },
   status: { type: String, required: true },

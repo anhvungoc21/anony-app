@@ -1,11 +1,10 @@
 import { Schema, model, models } from "mongoose";
-import { internshipSchema } from "./InternshipModel";
 
 const userSchema = new Schema({
-  name: String,
+  name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: String,
-  internships: { type: [internshipSchema], default: [] },
+  password: { type: String, required: true },
+  internships: { type: [Number], default: [] },
   gradYear: Number,
   educationStatus: String,
 });

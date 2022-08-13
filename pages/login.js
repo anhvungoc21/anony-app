@@ -24,6 +24,11 @@ export default function Login() {
     }
   };
 
+  const changeSignUp = (e) => {
+    e.preventDefault();
+    Router.push("/register");
+  };
+
   return (
     <div>
       <div className="fixed top-1/3 left-1/3 bg-slate-700 h-1/3 w-1/3 text-center text-white rounded-2xl space-y-3 p-5">
@@ -52,11 +57,16 @@ export default function Login() {
           </div>
           <p style={{ color: "red" }}>{message}</p>
           <button type="submit" className="bg-purple-500 p-2 rounded">
-            Login / Sign Up
+            Login
           </button>
         </form>
         <div>New to My Internships?</div>
-        <button className="bg-purple-500 p-2 rounded">Sign Up</button>
+        <button
+          onClick={(e) => changeSignUp(e)}
+          className="bg-purple-500 p-2 rounded"
+        >
+          Sign Up
+        </button>
       </div>
     </div>
   );
