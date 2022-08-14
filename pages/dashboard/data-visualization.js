@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 
 export default function DataVisualization() {
-  const [data, setData] = useState([{ company: "Google", count: 30 }]);
+  const [data, setData] = useState([]);
   const Chart = dynamic(import("../../components/BarChart"), { ssr: false });
   // FETCH DATA FROM DATABASE ON PAGELOAD HERE
   useEffect(() => {

@@ -51,7 +51,6 @@ export default function Explore() {
       });
 
       const json = await res.json();
-      console.log("Graph data: " + json.data);
       setListings(json.data);
     })();
   }, [refresh, session]);
