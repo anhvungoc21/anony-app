@@ -3,15 +3,17 @@ import NavBar from "../../components/NavBar";
 import ExploreListingItem from "../../components/ExploreListingItem";
 import ItemModal from "../../components/ItemModal";
 import ModalOverlay from "../../components/ModalOverlay";
+import { useSession } from "next-auth/react";
 
 export default function Explore() {
   const [listings, setListings] = useState([]);
-
   const [filteredListings, setFilteredListings] = useState([]);
   const [filters, setFilters] = useState(["", "", ""]);
   const [itemModal, setItemModal] = useState({});
   const [displayModal, setDisplayModal] = useState(false);
   const [displayModalOverlay, setDisplayModalOverlay] = useState(false);
+  const [refresh, setRefresh] = useState(true);
+  const { data: session, status } = useSession();
 
   const handleDisplayModal = (bool) => {
     setDisplayModal(bool);
@@ -30,12 +32,30 @@ export default function Explore() {
     const filteredItems = listings.filter((item) => {
       return (
         (company == "" || item.companyName == company) &&
-        (position == "" || item.position == position) &&
-        (status == "" || item.status == status)
+        (position == "" || item.jobPosition == position) &&
+        (status == "" || item.jobStatus == status)
       );
     });
     setFilteredListings(filteredItems);
   }, [filters]);
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch("/api/internship/getExploreInternships", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const json = await res.json();
+      setListings(json.data);
+    })();
+  }, [refresh, session]);
+
+  const refreshMyApplications = () => {
+    setRefresh((prev) => !prev);
+  };
 
   return (
     <div className="h-screen w-screen">
@@ -112,6 +132,12 @@ export default function Explore() {
                   </select>
                 </div>
                 <span className="col-span-2">Date Applied</span>
+                <button
+                  onClick={refreshMyApplications}
+                  className="bg-white col-span-1 rounded-lg"
+                >
+                  ?
+                </button>
               </div>
               <div
                 id="entries"
@@ -122,10 +148,10 @@ export default function Explore() {
                       <ExploreListingItem
                         key={`listing-item-${i}`}
                         companyName={entry.companyName}
-                        position={entry.position}
-                        status={entry.status}
+                        position={entry.jobPosition}
+                        status={entry.jobStatus}
                         dateApplied={entry.dateApplied}
-                        url={entry.url}
+                        url={entry.positionUrl}
                         setItemModal={() => setItemModal(entry)}
                         handleDisplayModal={() => handleDisplayModal(true)}
                       />
@@ -134,10 +160,10 @@ export default function Explore() {
                       <ExploreListingItem
                         key={`listing-item-${i}`}
                         companyName={entry.companyName}
-                        position={entry.position}
-                        status={entry.status}
+                        position={entry.jobPosition}
+                        status={entry.jobStatus}
                         dateApplied={entry.dateApplied}
-                        url={entry.url}
+                        url={entry.positionUrl}
                         setItemModal={() => setItemModal(entry)}
                         handleDisplayModal={() => handleDisplayModal(true)}
                       />
