@@ -7,10 +7,11 @@ export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [gradYear, setGradYear] = useState(2025);
 
   const signUpUser = async (e) => {
     e.preventDefault();
-    if (!(name && email && password)) {
+    if (!(name && gradYear && email && password)) {
       setMessage("Please fill out all fields!");
       return;
     }
@@ -20,7 +21,7 @@ export default function Register() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, email, password, gradYear }),
     });
 
     const data = await res.json();
@@ -55,6 +56,16 @@ export default function Register() {
               name="name"
               placeholder="John Doe"
               onChange={(e) => setName(e.target.value)}
+            ></input>
+          </div>
+          <div className="flex flex-col gap-1">
+            <span> Graduation Year: </span>
+            <input
+              className="p-2 rounded-lg"
+              type="number"
+              name="gradyear"
+              placeholder="2025"
+              onChange={(e) => setGradYear(e.target.value)}
             ></input>
           </div>
           <div className="flex flex-col gap-1">

@@ -44,7 +44,7 @@ export default function ExploreListingItem({
       </div>
       <a
         className="bg-white rounded-lg p-1 hover:bg-[color:var(--skin)] transition-colors text-center"
-        href={url}
+        href={"https://" + url}
       >
         Apply
       </a>
