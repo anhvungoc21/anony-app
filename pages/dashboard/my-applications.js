@@ -6,9 +6,6 @@ import ListingItem from "../../components/ListingItem.js";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
-// NavBar on left side
-// The rest is the main dashboard
-
 export default function DashBoard() {
   // FORM STATES
   const [companyName, setCompanyName] = useState("");
@@ -20,18 +17,11 @@ export default function DashBoard() {
   const [positionUrl, setPositionUrl] = useState("");
   const [refresh, setRefresh] = useState(true);
   const [message, setMessage] = useState(null);
+
   // LISTINGS STATES
-  const [listings, setListings] = useState([
-    {
-      companyName: "Facebook",
-      position: "Front-end Software Engineer",
-      status: "Applied",
-      dateApplied: "08/12/2022",
-    },
-  ]);
+  const [listings, setListings] = useState([]);
 
   const { data: session, status } = useSession();
-  console.log(session);
 
   const addApplication = async (e) => {
     e.preventDefault();

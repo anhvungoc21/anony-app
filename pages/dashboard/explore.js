@@ -5,17 +5,8 @@ import ItemModal from "../../components/ItemModal";
 import ModalOverlay from "../../components/ModalOverlay";
 
 export default function Explore() {
-  const [listings, setListings] = useState([
-    {
-      companyName: "Google",
-      position: "Back-end Developer",
-      category: "Architecture and Engineering",
-      status: "Applied",
-      location: "New York",
-      dateApplied: "08/12/2022",
-      url: "https://discord.com/channels/@me/1008008351440965642",
-    },
-  ]);
+  const [listings, setListings] = useState([]);
+
   const [filteredListings, setFilteredListings] = useState([]);
   const [filters, setFilters] = useState(["", "", ""]);
   const [itemModal, setItemModal] = useState({});

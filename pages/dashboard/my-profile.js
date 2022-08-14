@@ -73,7 +73,7 @@ export default function MyProfile() {
                   {" "}
                   On-going:{" "}
                 </span>
-                <span data-onGoing="">0</span>
+                <span data-on-going="">0</span>
               </div>
               <div className="flex justify-end items-center gap-4">
                 <span className="[font-weight:var(--semi-bold-text)]">
