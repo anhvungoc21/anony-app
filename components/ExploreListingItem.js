@@ -10,14 +10,14 @@ export default function ExploreListingItem({
   handleDisplayModal,
 }) {
   const thisRef = useRef(null);
-  const handleTransition = (bool) => {
-    const thisNode = thisRef.current;
-    if (bool) {
-      thisNode.classList.add("jiggle-up");
-    } else {
-      thisNode.classList.remove("jiggle-up");
-    }
-  };
+  // const handleTransition = (bool) => {
+  //   const thisNode = thisRef.current;
+  //   if (bool) {
+  //     thisNode.classList.add("jiggle-up");
+  //   } else {
+  //     thisNode.classList.remove("jiggle-up");
+  //   }
+  // };
 
   return (
     <div
@@ -27,8 +27,8 @@ export default function ExploreListingItem({
         handleDisplayModal();
       }}
       ref={thisRef}
-      onMouseOver={() => handleTransition(true)}
-      onMouseLeave={() => handleTransition(false)}
+      // onMouseOver={() => handleTransition(true)}
+      // onMouseLeave={() => handleTransition(false)}
     >
       <div id="company-name" className="col-span-2 flex items-center">
         {companyName}

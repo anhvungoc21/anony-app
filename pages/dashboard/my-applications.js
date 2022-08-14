@@ -85,6 +85,17 @@ export default function DashBoard() {
     }
 
     setRefresh((prev) => !prev);
+
+    // Reset UI
+    const childrenNodes = e.target.closest("#form").childNodes;
+    childrenNodes.forEach((node) => {
+      const inputField = node.querySelector(".input");
+      if (inputField) {
+        console.log(inputField);
+        console.log(inputField.value);
+        inputField.value = "";
+      }
+    });
   };
 
   const handleDeleteItem = async (id) => {
@@ -161,7 +172,7 @@ export default function DashBoard() {
             >
               <span>*Company:</span>
               <input
-                className="grow p-2 flex rounded-lg bg-[color:var(--gray)] m-2 h-full "
+                className="grow p-2 flex rounded-lg bg-[color:var(--gray)] m-2 h-full input"
                 onChange={(e) => setCompanyName(e.target.value)}
                 placeholder="Google"
               ></input>
@@ -172,7 +183,7 @@ export default function DashBoard() {
             >
               <span>*Position:</span>
               <input
-                className="grow p-2 flex rounded-lg bg-[color:var(--gray)] m-2 h-full "
+                className="grow p-2 flex rounded-lg bg-[color:var(--gray)] m-2 h-full input"
                 onChange={(e) => setJobPosition(e.target.value)}
                 placeholder="SWE New Grad Summer 2023"
               ></input>
@@ -182,22 +193,25 @@ export default function DashBoard() {
               className="flex w-full h-full items-center p-4 gap-1 hover:bg-[color:var(--light-blue)] transition-colors select-none"
             >
               <span>*Job Category:</span>
-              <JobCategoryDropdown setJobCategory={setJobCategory} />
+              <JobCategoryDropdown
+                className="input"
+                setJobCategory={setJobCategory}
+              />
             </div>
             <div className="flex w-full h-full items-center p-4 gap-1 hover:bg-[color:var(--light-blue)] transition-colors select-none">
               <span>*Location:</span>
-              <LocationDropdown setLocation={setLocation} />
+              <LocationDropdown className="input" setLocation={setLocation} />
             </div>
             <div className="flex w-full h-full items-center p-4 gap-1 hover:bg-[color:var(--light-blue)] transition-colors select-none">
               <span>*Status:</span>
-              <StatusDropdown setJobStatus={setJobStatus} />
+              <StatusDropdown className="input" setJobStatus={setJobStatus} />
             </div>
             {/* Conditional rendering for date applied based on status? */}
             <div className="flex w-full h-full items-center p-4 gap-1 hover:bg-[color:var(--light-blue)] transition-colors select-none">
               <span>Date Applied:</span>
               <input
                 onChange={(e) => setDateApplied(e.target.value)}
-                className="grow p-2 border-box flex rounded-lg bg-[color:var(--gray)] m-2 h-full"
+                className="grow p-2 border-box flex rounded-lg bg-[color:var(--gray)] m-2 h-full input"
                 placeholder="mm/dd/yyyy..."
               ></input>
             </div>
@@ -205,7 +219,7 @@ export default function DashBoard() {
               <span>*URL:</span>
               <input
                 onChange={(e) => setPositionUrl(e.target.value)}
-                className="grow p-2 border-box flex rounded-lg bg-[color:var(--gray)] m-2 h-full "
+                className="grow p-2 border-box flex rounded-lg bg-[color:var(--gray)] m-2 h-full input"
                 placeholder="www.jobs.google.com"
               ></input>
             </div>
