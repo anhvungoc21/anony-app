@@ -6,6 +6,7 @@ import {
   getSession,
 } from "next-auth/react";
 import Router from "next/router";
+import Head from "next/head";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -32,8 +33,12 @@ export default function Login() {
 
   return (
     <div className="flex items-center justify-center h-screen w-screen bg-[color:var(--gray)] select-none">
+      <Head>
+        <title>Log In to AnonyApp</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className="flex flex-col items-center bg-[color:var(--skin)] rounded-2xl p-8 space-y-4">
-        <span className="text-2xl font-bold">Sign in to AnonyApp</span>
+        <span className="text-2xl font-bold">Log in to AnonyApp</span>
         <form
           className="flex flex-col space-y-3 justify-center items-center"
           onSubmit={(e) => signInUser(e)}

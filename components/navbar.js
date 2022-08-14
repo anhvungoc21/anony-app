@@ -1,4 +1,9 @@
-import { BiSpreadsheet, BiWorld, BiUserCircle } from "react-icons/bi";
+import {
+  BiSpreadsheet,
+  BiWorld,
+  BiUserCircle,
+  BiBarChart,
+} from "react-icons/bi";
 import Link from "next/link";
 
 export default function NavBar() {
@@ -20,6 +25,12 @@ export default function NavBar() {
         <a className="wrap-0 flex p-2 bg-white rounded-md hover:bg-[color:var(--skin)] nav--link select-none cursor-pointer gap-1">
           <BiWorld size={28} />
           <span> Explore </span>
+        </a>
+      </Link>
+      <Link id="data-visualization" href="/dashboard/data-visualization">
+        <a className="wrap-0 flex p-2 bg-white rounded-md hover:bg-[color:var(--skin)] nav--link select-none cursor-pointer gap-1">
+          <BiBarChart size={28} />
+          <span> Data Visualization </span>
         </a>
       </Link>
       <Link id="my-profile" href="/dashboard/my-profile">

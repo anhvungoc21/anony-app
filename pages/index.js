@@ -1,9 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
+import Head from "next/head";
 
 export default function Home() {
   return (
     <div className="grid grid-rows-7 w-screen h-screen">
+      <Head>
+        <title>AnonyApp</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div
         id="nav"
         className="flex bg-[color:var(--skin)] justify-between pl-28 pr-60 pt-4"

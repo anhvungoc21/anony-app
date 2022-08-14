@@ -7,6 +7,8 @@ export default function ListingItem({
   dateApplied,
   handleDeleteItem,
   handleStatusChange,
+  setItemModal,
+  handleDisplayModal,
   id,
 }) {
   return (
@@ -35,7 +37,13 @@ export default function ListingItem({
       <div id="date-applied" className="col-span-1 flex items-center">
         {dateApplied}
       </div>
-      <button className="bg-white rounded-lg p-1 hover:bg-[color:var(--skin)] transition-colors text-center">
+      <button
+        className="bg-white rounded-lg p-1 hover:bg-[color:var(--skin)] transition-colors text-center"
+        onClick={() => {
+          setItemModal();
+          handleDisplayModal();
+        }}
+      >
         Details
       </button>
       <button
