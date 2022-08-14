@@ -83,18 +83,26 @@ export default function DashBoard() {
     setRefresh((prev) => !prev);
   };
 
-  const handleDeleteItem = (i) => {
-    const left = listings.slice(0, i);
-    const right = listings.slice(i + 1);
-    setListings(left.concat(right));
+  const handleDeleteItem = async (id) => {
+    await fetch("/api/internship/deleteMyInternship", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    });
+    setRefresh((prev) => !prev);
   };
 
-  const handleStatusChange = (newStatus, i) => {
-    const left = listings.slice(0, i);
-    const right = listings.slice(i + 1);
-    const toChange = listings[i];
-    toChange.status = newStatus;
-    setListings(left.concat([toChange]).concat(right));
+  const handleStatusChange = async (newStatus, id) => {
+    await fetch("/api/internship/updateInternshipStatus", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newStatus, id }),
+    });
+    setRefresh((prev) => !prev);
   };
 
   const refreshMyApplications = () => {
@@ -229,7 +237,7 @@ export default function DashBoard() {
                   dateApplied={entry.dateApplied}
                   handleDeleteItem={handleDeleteItem}
                   handleStatusChange={handleStatusChange}
-                  index={i}
+                  id={entry._id}
                 />
               ))}
             </div>

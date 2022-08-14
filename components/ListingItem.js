@@ -7,7 +7,7 @@ export default function ListingItem({
   dateApplied,
   handleDeleteItem,
   handleStatusChange,
-  index,
+  id,
 }) {
   return (
     <div className="grid grid-cols-9 w-full rounded-lg bg-[color:var(--gray)] p-4 justify-center">
@@ -21,7 +21,7 @@ export default function ListingItem({
         id="status"
         className="col-span-2 flex items-center rounded-lg bg-white cursor-pointer pl-2 mr-8"
         defaultValue={status}
-        onChange={(e) => handleStatusChange(e.target.value, index)}
+        onChange={(e) => handleStatusChange(e.target.value, id)}
       >
         <option value="" disabled>
           Choose an application status
@@ -40,7 +40,7 @@ export default function ListingItem({
       </button>
       <button
         className="flex items-center justify-center"
-        onClick={() => handleDeleteItem(index)}
+        onClick={() => handleDeleteItem(id)}
       >
         <BiTrash
           className="bg-white rounded-lg p-1 hover:bg-[color:var(--skin)] transition-colors text-center"
