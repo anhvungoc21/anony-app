@@ -31,11 +31,11 @@ export default async function handler(req, res) {
 
   const newInternship = new Internships({
     email,
-    companyName,
+    companyName: companyName.trim(),
     jobStatus,
     dateApplied: dateAppliedTo,
     lastUpdatedDate,
-    jobPosition,
+    jobPosition: jobPosition.trim(),
     jobCategory,
     location,
     positionUrl,
