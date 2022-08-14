@@ -146,7 +146,7 @@ export default function DashBoard() {
               id="company-name"
               className="flex w-full h-full items-center p-4 gap-1 hover:bg-[color:var(--light-blue)] transition-colors select-none"
             >
-              <span>*Company Name:</span>
+              <span>*Company:</span>
               <input
                 className="grow p-2 flex rounded-lg bg-[color:var(--gray)] m-2 h-full "
                 onChange={(e) => setCompanyName(e.target.value)}
@@ -213,7 +213,7 @@ export default function DashBoard() {
               id="columns"
               className="grid grid-cols-9 w-full rounded-lg bg-[color:var(--light-blue)] p-4 [font-weight:var(--bold-text)]"
             >
-              <span className="col-span-2">Company Name</span>
+              <span className="col-span-2">Company</span>
               <span className="col-span-2">Position</span>
               <span className="col-span-2">Status</span>
               <span className="col-span-2">Date Applied</span>
