@@ -21,7 +21,7 @@ export default function DashBoard() {
   const [message, setMessage] = useState(null);
 
   // LISTINGS STATES
-  const [listings, setListings] = useState([{}]);
+  const [listings, setListings] = useState([]);
 
   const { data: session, status } = useSession();
   console.log(session);
@@ -177,7 +177,7 @@ export default function DashBoard() {
             </div>
             <div
               id="entries"
-              className="flex flex-col grow w-full gap-2 overflow-y-scroll"
+              className="flex flex-col grow w-full gap-2 overflow-y-scroll scrollbar-hide"
             >
               {listings.map((entry, i) => (
                 <ListingItem

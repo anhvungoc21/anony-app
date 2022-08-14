@@ -33,3 +33,7 @@ select {
 input::placeholder {
   font-style: italic;
 }
+
+.jiggle-up {
+  transform: translate(0px, -2px);
+}
