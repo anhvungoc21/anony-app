@@ -1,12 +1,12 @@
 import { Schema, model, models } from "mongoose";
 
 const internshipSchema = new Schema({
-  email: { type: String, required: true, unique: true },
+  email: { type: String, required: true },
   companyName: { type: String },
   jobStatus: { type: String },
-  dateApplied: { type: Date },
-  lastUpdatedDate: { type: Date, default: Date.now() },
-  position: String,
+  dateApplied: String,
+  lastUpdatedDate: String,
+  jobPosition: String,
   jobCategory: String,
   location: String,
   positionUrl: String,

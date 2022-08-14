@@ -30,7 +30,7 @@ export default function Register() {
     if (data.message == "Registered successfully!") {
       let options = { redirect: false, email, password };
       const res = signIn("credentials", options);
-      return Router.push("/testing");
+      return Router.push("/dashboard/my-applications");
     }
   };
 
@@ -53,7 +53,7 @@ export default function Register() {
               className="p-2 rounded-lg"
               type="text"
               name="name"
-              placeholder="First Last"
+              placeholder="John Doe"
               onChange={(e) => setName(e.target.value)}
             ></input>
           </div>

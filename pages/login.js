@@ -21,7 +21,7 @@ export default function Login() {
       setMessage(res.error);
       setTimeout(() => setMessage(""), 2000);
     } else {
-      return Router.push("/");
+      return Router.push("/dashboard/my-applications");
     }
   };
 

@@ -1,17 +1,26 @@
 import Users from "../../../models/UserModel";
 import Internships from "../../../models/InternshipModel";
-import stripLower from "../../../helper/stripLower";
+import moment from "moment";
 
 export default async function handler(req, res) {
-  const { email, jobCategory, location, jobStatus, dateApplied } = req.body;
-  const companyName = stripLower(req.body.companyName);
-  const position = stripLower(req.body.jobPosition);
-  const positionUrl = stripLower(req.body.positionUrl);
+  const {
+    email,
+    companyName,
+    jobPosition,
+    positionUrl,
+    jobCategory,
+    location,
+    jobStatus,
+    dateApplied,
+  } = req.body;
   const checkExistingApplication = await Internships.findOne({
     email,
     companyName,
-    position,
+    jobPosition,
   });
+  const dateAppliedTo =
+    dateApplied == "" ? moment().format("MM/DD/YYYY") : dateApplied;
+  const lastUpdatedDate = moment().format("MM/DD/YYYY");
 
   if (checkExistingApplication) {
     res.status(200).json({
@@ -24,8 +33,9 @@ export default async function handler(req, res) {
     email,
     companyName,
     jobStatus,
-    dateApplied,
-    position,
+    dateApplied: dateAppliedTo,
+    lastUpdatedDate,
+    jobPosition,
     jobCategory,
     location,
     positionUrl,

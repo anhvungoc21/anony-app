@@ -3,14 +3,13 @@ import LocationDropdown from "../../components/LocationDropdown.js";
 import StatusDropdown from "../../components/StatusDropdown.js";
 import JobCategoryDropdown from "../../components/JobCategoryDropdown.js";
 import ListingItem from "../../components/ListingItem.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-// {
-//   companyName: "Facebook",
-//   position: "Front-end Software Engineer",
-//   status: "Applied",
-//   dateApplied: "08/12/2022",
-// },
+import moment from "moment";
+
+// NavBar on left side
+// The rest is the main dashboard
+
 export default function DashBoard() {
   // FORM STATES
   const [companyName, setCompanyName] = useState("");
@@ -20,8 +19,8 @@ export default function DashBoard() {
   const [jobStatus, setJobStatus] = useState("");
   const [dateApplied, setDateApplied] = useState("");
   const [positionUrl, setPositionUrl] = useState("");
+  const [refresh, setRefresh] = useState(true);
   const [message, setMessage] = useState(null);
-
   // LISTINGS STATES
   const [listings, setListings] = useState([
     {
@@ -40,7 +39,7 @@ export default function DashBoard() {
     if (
       !(
         companyName &&
-        position &&
+        jobPosition &&
         jobCategory &&
         location &&
         jobStatus &&
@@ -49,24 +48,8 @@ export default function DashBoard() {
     ) {
       setMessage("Please fill out all fields!");
       setTimeout(() => setMessage(""), 3000);
+      return;
     }
-
-    if (dateApplied == "") {
-      setDateApplied(Date.now());
-    }
-
-    const d = {
-      email: session?.user.email,
-      companyName,
-      jobPosition,
-      jobCategory,
-      location,
-      jobStatus,
-      dateApplied,
-      positionUrl,
-    };
-
-    console.log(d);
 
     const res = await fetch("/api/internship/addInternship", {
       method: "POST",
@@ -85,10 +68,20 @@ export default function DashBoard() {
       }),
     });
 
+    setCompanyName("");
+    setJobPosition("");
+    setJobCategory("");
+    setLocation("");
+    setJobStatus("");
+    setDateApplied("");
+    setPositionUrl("");
+
     const data = await res.json();
     if (data.message) {
       setMessage(data.message);
     }
+
+    setRefresh((prev) => !prev);
   };
 
   const handleStatusChange = (newStatus, i) => {
@@ -98,7 +91,26 @@ export default function DashBoard() {
     toChange.status = newStatus;
     setListings(left.concat([toChange]).concat(right));
   };
-  
+
+  const refreshMyApplications = () => {
+    setRefresh((prev) => !prev);
+  };
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch("/api/internship/getMyApplications", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: session?.user.email }),
+      });
+
+      const json = await res.json();
+      setListings(json.data);
+    })();
+  }, [refresh, session]);
+
   return (
     <div className="flex h-screen w-screen">
       <NavBar />
@@ -192,6 +204,12 @@ export default function DashBoard() {
               <span className="col-span-2">Position</span>
               <span className="col-span-2">Status</span>
               <span className="col-span-2">Date Applied</span>
+              <button
+                onClick={refreshMyApplications}
+                className="bg-white col-span-1 rounded-lg"
+              >
+                ?
+              </button>
             </div>
             <div
               id="entries"
@@ -201,8 +219,8 @@ export default function DashBoard() {
                 <ListingItem
                   key={`listing-item-${i}`}
                   companyName={entry.companyName}
-                  position={entry.position}
-                  status={entry.status}
+                  position={entry.jobPosition}
+                  status={entry.jobStatus}
                   dateApplied={entry.dateApplied}
                   handleStatusChange={handleStatusChange}
                   index={i}
