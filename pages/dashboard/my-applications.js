@@ -5,7 +5,6 @@ import JobCategoryDropdown from "../../components/JobCategoryDropdown.js";
 import ListingItem from "../../components/ListingItem.js";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import moment from "moment";
 
 // NavBar on left side
 // The rest is the main dashboard
@@ -82,6 +81,12 @@ export default function DashBoard() {
     }
 
     setRefresh((prev) => !prev);
+  };
+
+  const handleDeleteItem = (i) => {
+    const left = listings.slice(0, i);
+    const right = listings.slice(i + 1);
+    setListings(left.concat(right));
   };
 
   const handleStatusChange = (newStatus, i) => {
@@ -222,6 +227,7 @@ export default function DashBoard() {
                   position={entry.jobPosition}
                   status={entry.jobStatus}
                   dateApplied={entry.dateApplied}
+                  handleDeleteItem={handleDeleteItem}
                   handleStatusChange={handleStatusChange}
                   index={i}
                 />
