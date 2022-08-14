@@ -5,10 +5,12 @@ import JobCategoryDropdown from "../../components/JobCategoryDropdown.js";
 import ListingItem from "../../components/ListingItem.js";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-
-// NavBar on left side
-// The rest is the main dashboard
-
+// {
+//   companyName: "Facebook",
+//   position: "Front-end Software Engineer",
+//   status: "Applied",
+//   dateApplied: "08/12/2022",
+// },
 export default function DashBoard() {
   // FORM STATES
   const [companyName, setCompanyName] = useState("");
@@ -21,7 +23,14 @@ export default function DashBoard() {
   const [message, setMessage] = useState(null);
 
   // LISTINGS STATES
-  const [listings, setListings] = useState([]);
+  const [listings, setListings] = useState([
+    {
+      companyName: "Facebook",
+      position: "Front-end Software Engineer",
+      status: "Applied",
+      dateApplied: "08/12/2022",
+    },
+  ]);
 
   const { data: session, status } = useSession();
   console.log(session);
@@ -81,6 +90,15 @@ export default function DashBoard() {
       setMessage(data.message);
     }
   };
+
+  const handleStatusChange = (newStatus, i) => {
+    const left = listings.slice(0, i);
+    const right = listings.slice(i + 1);
+    const toChange = listings[i];
+    toChange.status = newStatus;
+    setListings(left.concat([toChange]).concat(right));
+  };
+  
   return (
     <div className="flex h-screen w-screen">
       <NavBar />
@@ -186,6 +204,8 @@ export default function DashBoard() {
                   position={entry.position}
                   status={entry.status}
                   dateApplied={entry.dateApplied}
+                  handleStatusChange={handleStatusChange}
+                  index={i}
                 />
               ))}
             </div>

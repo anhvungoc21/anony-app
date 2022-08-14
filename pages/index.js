@@ -42,14 +42,9 @@ export default function Home() {
             id="sign-in-intro"
             className="flex gap-8 items-center justify-start p-8 pl-0 text-2xl"
           >
-            <Link id="log-in" href="/login">
-              <a className="hover:[color:var(--blue)] transition-colors bg-white pt-4 pb-4 pr-8 pl-8 rounded-lg">
-                Log in
-              </a>
-            </Link>
-            <Link id="sign-up" href="/register">
-              <a className="hover:[color:var(--blue)] transition-colors bg-white pt-4 pb-4 pr-8 pl-8 rounded-lg">
-                Sign up
+            <Link id="get-started" href="/login">
+              <a className="hover:[color:var(--blue)] transition-colors bg-white pt-4 pb-4 pr-16 pl-16 rounded-lg">
+                Get Started
               </a>
             </Link>
           </div>
