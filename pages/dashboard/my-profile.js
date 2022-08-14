@@ -1,7 +1,30 @@
 import NavBar from "../../components/NavBar";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 
 export default function MyProfile() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [gradYear, setGradYear] = useState("");
+  const [userProfile, setUserProfile] = useState({});
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch("/api/getProfileInfo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: session?.user.email }),
+      });
+
+      const json = await res.json();
+      setUserProfile(json.data);
+    })();
+  }, [session]);
+
   return (
     <div className="flex h-screen w-screen">
       <Head>
@@ -29,38 +52,20 @@ export default function MyProfile() {
               <div className="flex items-center gap-4">
                 <span className="[font-weight:var(--semi-bold-text)]">
                   {" "}
-                  Name:{" "}
+                  Name: {userProfile?.name}
                 </span>
-                <input
-                  className="p-2 rounded-lg bg-[color:var(--gray)] grow"
-                  type="text"
-                  name="name"
-                  placeholder="First Last"
-                ></input>
               </div>
               <div className="flex items-center gap-4">
                 <span className="[font-weight:var(--semi-bold-text)]">
                   {" "}
-                  Email:{" "}
+                  Email: {userProfile?.email}
                 </span>
-                <input
-                  className="p-2 rounded-lg bg-[color:var(--gray)] grow"
-                  type="text"
-                  name="email"
-                  placeholder="johndoe@example.com"
-                ></input>
               </div>
               <div className="flex items-center gap-4">
                 <span className="[font-weight:var(--semi-bold-text)]">
                   {" "}
-                  Graduation Year:{" "}
+                  Graduation Year: {userProfile?.gradYear}
                 </span>
-                <input
-                  className="p-2 rounded-lg bg-[color:var(--gray)] grow"
-                  type="text"
-                  name="grad-year"
-                  placeholder="2025"
-                ></input>
               </div>
             </div>
             <div id="statistics" className="flex flex-col gap-8">
@@ -72,29 +77,36 @@ export default function MyProfile() {
                   {" "}
                   Jobs Applied:{" "}
                 </span>
-                <span data-jobs-applied="">0</span>
+                <span data-jobs-applied="">{userProfile?.jobsApplied}</span>
               </div>
               <div className="flex justify-end items-center gap-4">
                 <span className="[font-weight:var(--semi-bold-text)]">
                   {" "}
-                  On-going:{" "}
+                  Tests Taken:{" "}
                 </span>
-                <span data-on-going="">0</span>
+                <span data-onGoing="">{userProfile?.jobsTestTaken}</span>
+              </div>
+              <div className="flex justify-end items-center gap-4">
+                <span className="[font-weight:var(--semi-bold-text)]">
+                  {" "}
+                  Job Interviews:{" "}
+                </span>
+                <span data-onGoing="">{userProfile?.jobsInterviewed}</span>
               </div>
               <div className="flex justify-end items-center gap-4">
                 <span className="[font-weight:var(--semi-bold-text)]">
                   {" "}
                   Accepted:{" "}
                 </span>
-                <span data-acceptance="">0</span>
+                <span data-acceptance="">{userProfile?.jobsAccepted}</span>
               </div>
-              <div className="flex justify-end items-center gap-4">
+              {/* <div className="flex justify-end items-center gap-4">
                 <span className="[font-weight:var(--semi-bold-text)]">
                   {" "}
                   Rejected:{" "}
                 </span>
                 <span data-rejection="">0</span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

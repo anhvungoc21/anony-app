@@ -8,10 +8,12 @@ export default async function handler(req, res) {
     res.status(200).json({ message: "Already registered" });
     return;
   }
+
   const user = new Users({
     name: body.name,
     email: body.email,
     password: body.password,
+    gradYear: body.gradYear,
   });
   await user.save();
 

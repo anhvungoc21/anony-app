@@ -6,7 +6,6 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   internships: { type: [String], default: [] },
   gradYear: Number,
-  educationStatus: String,
 });
 
 const Users = models.Users || model("Users", userSchema);

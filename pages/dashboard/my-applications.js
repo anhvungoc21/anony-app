@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Head from "next/head.js";
 import { BiRefresh } from "react-icons/bi";
+import ItemModal from "../../components/ItemModal";
+import ModalOverlay from "../../components/ModalOverlay";
 
 export default function DashBoard() {
   // FORM STATES
@@ -24,6 +26,16 @@ export default function DashBoard() {
   const [listings, setListings] = useState([]);
 
   const { data: session, status } = useSession();
+
+  // MODALS:
+  const [itemModal, setItemModal] = useState({});
+  const [displayModal, setDisplayModal] = useState(false);
+  const [displayModalOverlay, setDisplayModalOverlay] = useState(false);
+
+  const handleDisplayModal = (bool) => {
+    setDisplayModal(bool);
+    setDisplayModalOverlay(bool);
+  };
 
   const addApplication = async (e) => {
     e.preventDefault();
@@ -122,6 +134,11 @@ export default function DashBoard() {
         <title>My Applications</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+
+      {displayModalOverlay ? (
+        <ModalOverlay handleDisplayModal={() => handleDisplayModal(false)} />
+      ) : null}
+      {displayModal ? <ItemModal itemRecord={itemModal} /> : null}
       <NavBar />
       <div id="main" className="grid grid-rows-6 grow bg-[color:var(--skin)]">
         <div
@@ -217,7 +234,7 @@ export default function DashBoard() {
                 onClick={refreshMyApplications}
                 className="flex bg-white col-span-1 rounded-lg hover:bg-[color:var(--skin)] transition-colors justify-center items-center "
               >
-                <BiRefresh size={28}/>
+                <BiRefresh size={28} />
               </button>
             </div>
             <div
@@ -233,6 +250,8 @@ export default function DashBoard() {
                   dateApplied={entry.dateApplied}
                   handleDeleteItem={handleDeleteItem}
                   handleStatusChange={handleStatusChange}
+                  setItemModal={() => setItemModal(entry)}
+                  handleDisplayModal={() => handleDisplayModal(true)}
                   id={entry._id}
                 />
               ))}
