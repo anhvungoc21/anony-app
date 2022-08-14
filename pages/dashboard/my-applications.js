@@ -5,6 +5,8 @@ import JobCategoryDropdown from "../../components/JobCategoryDropdown.js";
 import ListingItem from "../../components/ListingItem.js";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import Head from "next/head.js";
+import { BiRefresh } from "react-icons/bi";
 
 export default function DashBoard() {
   // FORM STATES
@@ -116,6 +118,10 @@ export default function DashBoard() {
 
   return (
     <div className="flex h-screen w-screen">
+      <Head>
+        <title>My Applications</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <NavBar />
       <div id="main" className="grid grid-rows-6 grow bg-[color:var(--skin)]">
         <div
@@ -209,9 +215,9 @@ export default function DashBoard() {
               <span className="col-span-2">Date Applied</span>
               <button
                 onClick={refreshMyApplications}
-                className="bg-white col-span-1 rounded-lg"
+                className="flex bg-white col-span-1 rounded-lg hover:bg-[color:var(--skin)] transition-colors justify-center items-center "
               >
-                ?
+                <BiRefresh size={28}/>
               </button>
             </div>
             <div

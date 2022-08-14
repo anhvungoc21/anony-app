@@ -1,4 +1,5 @@
 import Router from "next/router";
+import Head from "next/head";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 
@@ -41,6 +42,10 @@ export default function Register() {
 
   return (
     <div className="flex items-center justify-center h-screen w-screen bg-[color:var(--gray)] select-none">
+      <Head>
+        <title>Sign Up for AnonyApp</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className="flex flex-col items-center bg-[color:var(--skin)] rounded-2xl p-8 space-y-4">
         <span className="text-2xl font-bold">Sign up for AnonyApp</span>
         <form

@@ -1,7 +1,13 @@
 import NavBar from "../../components/NavBar";
+import Head from "next/head";
+
 export default function MyProfile() {
   return (
     <div className="flex h-screen w-screen">
+      <Head>
+        <title>My Profile</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <NavBar />
       <div id="main" className="grid grid-rows-6 grow bg-[color:var(--skin)]">
         <div

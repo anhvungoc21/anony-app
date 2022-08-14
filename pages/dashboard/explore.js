@@ -4,6 +4,8 @@ import ExploreListingItem from "../../components/ExploreListingItem";
 import ItemModal from "../../components/ItemModal";
 import ModalOverlay from "../../components/ModalOverlay";
 import { useSession } from "next-auth/react";
+import Head from "next/head";
+import { BiRefresh } from "react-icons/bi";
 
 export default function Explore() {
   const [listings, setListings] = useState([]);
@@ -59,6 +61,10 @@ export default function Explore() {
 
   return (
     <div className="h-screen w-screen">
+      <Head>
+        <title>Explore</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       {displayModalOverlay ? (
         <ModalOverlay handleDisplayModal={() => handleDisplayModal(false)} />
       ) : null}
@@ -134,9 +140,9 @@ export default function Explore() {
                 <span className="col-span-2">Date Applied</span>
                 <button
                   onClick={refreshMyApplications}
-                  className="bg-white col-span-1 rounded-lg"
+                  className="flex bg-white col-span-1 rounded-lg hover:bg-[color:var(--skin)] transition-colors justify-center items-center "
                 >
-                  ?
+                  <BiRefresh size={28} />
                 </button>
               </div>
               <div
