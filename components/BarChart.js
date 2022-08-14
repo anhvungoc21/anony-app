@@ -1,12 +1,7 @@
 import { BarChart, Bar, XAxis, YAxis } from "recharts";
 import { useEffect, useState } from "react";
 
-export default function DataVisualization() {
-  const [data, setData] = useState([
-    { company: "Google", count: 30 },
-    { company: "Facebook", count: 40 },
-  ]);
-
+export default function Chart({ data }) {
   const renderCustomBarLabel = ({ payload, x, y, width, height, value }) => {
     return (
       <text
@@ -19,13 +14,10 @@ export default function DataVisualization() {
     );
   };
 
-  // FETCH DATA FROM DATABASE ON PAGELOAD HERE
-  useEffect(() => {}, []);
-
   return (
     <BarChart width={600} height={300} data={data}>
       <XAxis dataKey="company" />
-      <YAxis tickCount={data.length + 1} />
+      <YAxis />
       <Bar
         dataKey="count"
         barSize={40}

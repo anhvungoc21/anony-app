@@ -1,10 +1,26 @@
 import dynamic from "next/dynamic";
 import NavBar from "../../components/NavBar";
 import Head from "next/head";
+import { useState, useEffect } from "react";
 
 export default function DataVisualization() {
-  const BarChart = dynamic(import("../../components/BarChart"), { ssr: false });
-
+  const [data, setData] = useState([{ company: "Google", count: 30 }]);
+  const Chart = dynamic(import("../../components/BarChart"), { ssr: false });
+  // FETCH DATA FROM DATABASE ON PAGELOAD HERE
+  useEffect(() => {
+    (async () => {
+      const res = await fetch("/api/internship/getInternshipsData", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const json = await res.json();
+      console.log(json.data);
+      if (!json.data) return;
+      setData(json.data);
+    })();
+  }, []);
   return (
     <div className="flex h-screen w-screen">
       <Head>
@@ -35,7 +51,7 @@ export default function DataVisualization() {
                 <option value="position">Position</option>
               </select>
             </div>
-            <BarChart />
+            <Chart data={data} />
           </div>
         </div>
       </div>

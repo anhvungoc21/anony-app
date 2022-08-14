@@ -51,6 +51,7 @@ export default function Explore() {
       });
 
       const json = await res.json();
+      console.log("Graph data: " + json.data);
       setListings(json.data);
     })();
   }, [refresh, session]);
@@ -101,8 +102,10 @@ export default function Explore() {
                   >
                     <option value="">Company</option>
                     <option value="Google">Google</option>
-                    <option value="Facebook">Facebook</option>
-                    <option value="Snap">Snap</option>
+                    <option value="Meta">Meta</option>
+                    <option value="Amazon">Amazon</option>
+                    <option value="Apple">Apple</option>
+                    <option value="Microsoft">Microsoft</option>
                   </select>
                 </div>
                 <div className="col-span-2">
@@ -121,6 +124,7 @@ export default function Explore() {
                     <option value="Full-stack Developer">
                       Full-stack Developer
                     </option>
+                    <option value="Product Manager">Product Manager</option>
                   </select>
                 </div>
                 <div className="col-span-2">
