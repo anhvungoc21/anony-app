@@ -1,10 +1,13 @@
+import { BiTrash } from "react-icons/bi";
+
 export default function ListingItem({
   companyName,
   position,
   status,
   dateApplied,
+  handleDeleteItem,
   handleStatusChange,
-  index
+  index,
 }) {
   return (
     <div className="grid grid-cols-9 w-full rounded-lg bg-[color:var(--gray)] p-4 justify-center">
@@ -29,11 +32,20 @@ export default function ListingItem({
         <option value="Rejected">Rejected</option>
         <option value="Accepted">Accepted</option>
       </select>
-      <div id="date-applied" className="col-span-2 flex items-center">
+      <div id="date-applied" className="col-span-1 flex items-center">
         {dateApplied}
       </div>
       <button className="bg-white rounded-lg p-1 hover:bg-[color:var(--skin)] transition-colors text-center">
         Details
+      </button>
+      <button
+        className="flex items-center justify-center"
+        onClick={() => handleDeleteItem(index)}
+      >
+        <BiTrash
+          className="bg-white rounded-lg p-1 hover:bg-[color:var(--skin)] transition-colors text-center"
+          size={28}
+        />
       </button>
     </div>
   );

@@ -91,6 +91,12 @@ export default function DashBoard() {
     }
   };
 
+  const handleDeleteItem = (i) => {
+    const left = listings.slice(0, i);
+    const right = listings.slice(i + 1);
+    setListings(left.concat(right));
+  };
+
   const handleStatusChange = (newStatus, i) => {
     const left = listings.slice(0, i);
     const right = listings.slice(i + 1);
@@ -98,7 +104,7 @@ export default function DashBoard() {
     toChange.status = newStatus;
     setListings(left.concat([toChange]).concat(right));
   };
-  
+
   return (
     <div className="flex h-screen w-screen">
       <NavBar />
@@ -204,6 +210,7 @@ export default function DashBoard() {
                   position={entry.position}
                   status={entry.status}
                   dateApplied={entry.dateApplied}
+                  handleDeleteItem={handleDeleteItem}
                   handleStatusChange={handleStatusChange}
                   index={i}
                 />
